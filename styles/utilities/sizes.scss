@@ -1,0 +1,70 @@
+@use '../mixins/breakpoints.scss' as *;
+
+$max-height: 100;
+$step: 2;
+$fullable-types: h, w;
+$spacing-types: h, w, p, m;
+
+@each $fullable in $fullable-types {
+  .#{$fullable}-full {
+    @if $fullable == h { height: 100% !important; }
+    @else if $fullable == w { width: 100% !important; }
+  }
+
+  .#{$fullable}-screen {
+    @if $fullable == h { height: 100vh !important; }
+    @else if $fullable == w { width: 100vh !important; }
+  }
+}
+
+@each $type in $spacing-types {
+
+  @for $i from 0 through $max-height {
+    @if $i % $step == 0 {
+      $val: $i +'%';
+
+      .#{$type}-#{$i} {
+        @if $type == h { height: #{$val} !important; }
+        @else if $type == w { width: #{$val} !important; }
+        @else if $type == p { padding: #{$val} !important; }
+        @else if $type == m { margin: #{$val} !important; }
+      }
+
+      // With breakpoint
+      @each $breakpoint,
+      $width in $breakpoints {
+        @include media-breakpoint-up($breakpoint) {
+          .#{$type}-#{$breakpoint}-#{$i} {
+            @if $type == h { height: #{$val} !important; }
+            @else if $type == w { width: #{$val} !important; }
+            @else if $type == p { padding: #{$val} !important; }
+            @else if $type == m { margin: #{$val} !important; }
+          }
+        }
+      }
+
+      // Viewport
+      .#{$type}-#{$i}-vh {
+        @if $type == h { height: #{$i}vh !important; }
+        @else if $type == w { width: #{$i}vh !important; }
+        @else if $type == p { padding: #{$i}vh !important; }
+        @else if $type == m { margin: #{$i}vh !important; }
+      }
+
+      // Viewport with breakpoint
+      @each $breakpoint,
+      $width in $breakpoints {
+        @include media-breakpoint-up($breakpoint) {
+          .#{$type}-#{$breakpoint}-#{$i}-vh {
+            @if $type == h { height: #{$i}vh !important; }
+            @else if $type == w { width: #{$i}vh !important; }
+            @else if $type == p { padding: #{$i}vh !important; }
+            @else if $type == m { margin: #{$i}vh !important; }
+          }
+        }
+      }
+    }
+
+  }
+
+}

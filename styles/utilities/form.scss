@@ -1,0 +1,58 @@
+@use '../colors.scss' as cl;
+@forward '../mixins/btn.scss';
+
+.form-group {
+  width: 100%;
+  background-color: transparent;
+  padding: 1.2rem 0 0.5rem 0;
+}
+
+.form-input {
+  width: 100%;
+  background: #FFFFFF;
+  border: 2px solid rgba(84, 95, 125, 0.15);
+  border-radius: 5px;
+  padding: 0.85rem;
+  transition: all ease;
+
+  &:is(:focus, :active, :focus-visible){
+    outline: 2px solid rgba(84, 95, 125, 0.15);
+  }
+}
+
+
+.form-append,
+.form-prepend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-append .appended {
+  margin-left: 0.5rem;
+}
+
+.form-prepend .prepended {
+  margin-right: 0.5rem;
+}
+
+// Button
+.btn-primary {
+  background-color: cl.$primary;
+  color: white;
+
+  &:is(:hover, :focus){
+    background-color: white;
+    color: cl.$primary;
+  }
+}
+
+.btn-secondary {
+  background-color: cl.$secondary;
+  color: #FFFFFF;
+
+  &:is(:hover, :focus){
+    background-color: white;
+    color: cl.$secondary;
+  }
+}

@@ -1,0 +1,52 @@
+@use './colors.scss' as cl;
+
+// Normalize
+body {
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+input:-internal-autofill-selected {
+  appearance: initial !important;
+  background-image: none !important;
+  background-color: initial !important;
+  color: initial !important;
+}
+
+.text-primary {
+  color: cl.$primary;
+}
+
+.capitalize {
+  text-transform: uppercase;
+}
+
+.border-none {
+  border: none !important;
+
+  &:is(:hover, :focus, :focus-visible){
+    border: none !important;
+    outline: none !important;
+  }
+}
+
+// Background
+.bg-black {
+  background-color: black;
+}
+
+.bg-white {
+  background-color: black;
+}
