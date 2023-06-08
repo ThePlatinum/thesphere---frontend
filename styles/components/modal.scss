@@ -1,0 +1,62 @@
+// Variables
+$modal-background-color: rgba(0, 0, 0, 0.3);
+$modal-padding: 1.5rem;
+$modal-transition-duration: 0.5s;
+
+:root {
+  --modal-max-width: 85vw;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --modal-max-width: 50vw;
+  }
+}
+
+// Modal styles
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $modal-background-color;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $modal-transition-duration, visibility $modal-transition-duration;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    position: relative;
+    background-color: #fff;
+    width: var(--modal-max-width);
+    max-width: var(--modal-max-width);
+    padding: $modal-padding;
+    border-radius: 0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    .modal-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.5rem;
+      color: #a8a8a8;
+      font-size: 1.7rem;
+      cursor: pointer;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+  }
+}

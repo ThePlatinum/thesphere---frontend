@@ -26,28 +26,38 @@ $spacing-types: top, bottom, left, right;
   @for $i from 0 through $max {
     @if $i % $step == 0 {
       $val: $i +'%';
-
       .#{$type}-#{$i} {
         @if $type == top { top: #{$val} !important; }
         @else if $type == bottom { bottom: #{$val} !important; }
         @else if $type == left { left: #{$val} !important; }
         @else if $type == right { right: #{$val} !important; }
       }
-      
-      @each $breakpoint,
-      $width in $breakpoints {
-        @include media-breakpoint-up($breakpoint) {
-          .#{$type}-#{$breakpoint}-#{$i} {
+
+    }
+  }
+
+}
+
+@each $breakpoint,
+$width in $breakpoints {
+  @include media-breakpoint-up($breakpoint) {
+    @each $type in $spacing-types {
+
+      @for $i from 0 through $max {
+        @if $i % $step == 0 {
+          $val: $i +'%';
+
+          .#{$type}-#{$i} {
             @if $type == top { top: #{$val} !important; }
             @else if $type == bottom { bottom: #{$val} !important; }
             @else if $type == left { left: #{$val} !important; }
             @else if $type == right { right: #{$val} !important; }
           }
+
         }
+
       }
 
     }
-
   }
-
 }

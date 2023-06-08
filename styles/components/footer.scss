@@ -1,0 +1,19 @@
+@use '../colors.scss' as *;
+
+footer {
+
+  .bg-grey {
+    background-color: $backgroundSecondary;
+  }
+
+  .social {
+    height: 20px;
+    width: 20px;
+    background-color: black;
+  }
+
+  .gap-2 {
+    gap: 5px;
+  }
+
+}

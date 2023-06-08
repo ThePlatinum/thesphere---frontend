@@ -1,0 +1,8 @@
+@use '../colors.scss' as *;
+
+.btn.account {
+  background-color: $secondary;
+  border-radius: 0px;
+  border-bottom-left-radius: 15px;
+  border: none;
+}

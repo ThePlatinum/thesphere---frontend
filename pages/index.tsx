@@ -1,19 +1,16 @@
-import Head from 'next/head'
+import Login from '@/components/Modals/Auth/Login'
+import AppLayout from '@/layouts/AppLayout'
 
 function Home() {
 
   return (
     <>
-      <Head>
-        <title>TheSphere</title>
-        <meta name="description" content="Keeping you in your sphere" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <div>
-        Home
-      </div>
+      <AppLayout title={'Home'} >
+        <div className='flex'>
+        </div>
+      </AppLayout>
+      
+      <Login />
     </>
   )
 }
