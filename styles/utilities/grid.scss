@@ -19,6 +19,7 @@ $grid-columns: 12;
       flex: 0 0 percentage($i / $grid-columns);
       max-width: percentage($i / $grid-columns);
     }
+
   }
 
   @each $breakpoint, $width in $breakpoints {
@@ -31,4 +32,8 @@ $grid-columns: 12;
       }
     }
   }
+}
+
+@for $i from 1 through $grid-columns {
+  .gap-#{$i} { gap: $i+px }
 }

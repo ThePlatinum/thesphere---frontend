@@ -2,46 +2,66 @@ import ApplicationLogo from "@/components/ApplicationLogo"
 import Modal from "../Modal"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/lib/redux/store"
-import { useEffect, useState } from "react"
 import Button from "@/components/Button"
-import { hide, showRegister } from "@/lib/redux/slices/authModalSlice"
+import { hide, showLogin } from "@/lib/redux/slices/authModalSlice"
 import * as yup from 'yup';
 import { Formik } from "formik"
+import { useState } from "react"
 
-const Login = () => {
+const Register = () => {
 
-  const [loginError, setLoginError] = useState('')
+  const [registerError, setRegisterError] = useState('')
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const openModal = useSelector((state: RootState) => state.authModal)
   const dispatch = useDispatch()
 
   const validationSchema = yup.object().shape({
+    name: yup.string().required('Your name please').min(2, 'Use a real name'),
     email: yup.string().email('Invalid email').required('Email is required'),
-    password: yup.string().required('Password is required'),
+    password: yup.string()
+      .required('Password is required')
+      .min(8, 'Password should be at least 8 characters'),
+    confirm_password: yup.string()
+      .required('Confirm Password is required')
+      .oneOf([yup.ref('password')], 'Passwords do not match')
   });
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     requestClose()
   }
+
+  const requestClose = () => dispatch(hide())
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible)
   }
 
-  const requestClose = () => dispatch(hide())
-
   return (
-    <Modal open={openModal == 'login'} >
+    <Modal open={openModal == 'register'} onClose={() => console.log('Onclose: ')} >
       <Modal.Content useClose className={'py-12 w-md-32'} requestClose={requestClose}>
         <ApplicationLogo />
 
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ name: '', email: '', password: '', confirm_password: '' }}
           validationSchema={validationSchema}
-          onSubmit={handleLogin} >
+          onSubmit={handleRegister} >
           {({ handleChange, handleBlur, handleSubmit, errors, values }: any) => (
             <div className="pt-8">
+
+              <div className="form-group">
+                <input
+                  className="form-input"
+                  placeholder="Name"
+                  name="name"
+                  aria-label="Name"
+                  value={values.name}
+                  onChange={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                />
+                {errors.name && <p className='form-error'>{errors.name}</p>}
+              </div>
+
               <div className="form-group">
                 <input
                   className="form-input"
@@ -75,20 +95,34 @@ const Login = () => {
                 {errors.password && <p className='form-error'>{errors.password}</p>}
               </div>
 
-              <p className='form-error pt-8 h6'>{loginError}</p>
+              <div className="form-group">
+                <input
+                  className="form-input"
+                  placeholder="Confirm Password"
+                  aria-label="Confirm Password"
+                  type='password'
+                  name="confirm_password"
+                  value={values.confirm_password}
+                  onBlur={handleBlur('confirm_password')}
+                  onChange={handleChange('confirm_password')}
+                />
+                {errors.confirm_password && <p className='form-error'>{errors.confirm_password}</p>}
+              </div>
+
+              <p className='form-error pt-8 h6'>{registerError}</p>
 
               <div className="pt-2 flex align-center">
                 <Button
                   type="submit"
                   onClick={handleSubmit}
                   className="auth-btn">
-                  Login
+                  Register
                 </Button>
 
                 <Button
-                  onClick={() => dispatch(showRegister())}
+                  onClick={() => dispatch(showLogin())}
                   className="underline">
-                  Create Account
+                  Back to Login
                 </Button>
               </div>
             </div>
@@ -99,4 +133,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

@@ -1,9 +1,9 @@
 @use '../mixins/breakpoints.scss' as *;
 
-$maxVal: 20;
+$maxVal: 100;
 $step: 2;
 $fullable-types: h, w;
-$spacing-types: h, w, p, m, px, py;
+$spacing-types: h, w, p, m, px, py, pr, pl, pt, pb;
 
 @each $fullable in $fullable-types {
   .#{$fullable}-full {
@@ -13,7 +13,7 @@ $spacing-types: h, w, p, m, px, py;
 
   .#{$fullable}-screen {
     @if $fullable == h { height: 100vh !important; }
-    @else if $fullable == w { width: 100vh !important; }
+    @else if $fullable == w { width: 100vw !important; }
   }
 }
 
@@ -56,6 +56,11 @@ $width in $breakpoints {
             @else if $type == m { margin: #{$val} !important; }
             @else if $type == px { padding-left: #{$val}; padding-right: #{$val}; }
             @else if $type == py { padding-top: #{$val}; padding-bottom: #{$val}; }
+            
+            @else if $type == pr { padding-right: #{$val};}
+            @else if $type == pl { padding-left: #{$val};}
+            @else if $type == pb { padding-bottom: #{$val}; }
+            @else if $type == pt { padding-top: #{$val};}
           }
         }
       }

@@ -1,6 +1,11 @@
+import { useEffect } from "react"
+
 interface ModalProps {
-  children: any,
+  children: any
   open: boolean
+  className?: string
+  onClose?: () => void
+  requestClose?: () => void
 }
 
 const Footer = ({ children }: any) => {
@@ -11,10 +16,10 @@ const Footer = ({ children }: any) => {
   )
 }
 
-const Content = ({ children, useClose = false }: any) => {
+const Content = ({ children, className, useClose = false, requestClose }: any) => {
   return (
-    <div className="modal-content">
-      {useClose && <span className="modal-close">&times;</span>}
+    <div className={`modal-content ${className}`}>
+      {useClose && <span className="modal-close" onClick={requestClose}>&times;</span>}
       {children}
     </div>
   )
@@ -22,10 +27,17 @@ const Content = ({ children, useClose = false }: any) => {
 
 const Modal = ({
   children,
-  open = false
+  open = false,
+  className,
+  onClose
 }: ModalProps) => {
+
+  useEffect(() => {
+    (!open && onClose) && onClose()
+  }, [open])
+
   return (
-    <div className={` modal ${open ? 'open' : ''}`}>
+    <div className={`modal ${open ? 'open' : ''} ${className}`}>
       {children}
     </div>
   )

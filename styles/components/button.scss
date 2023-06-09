@@ -6,3 +6,9 @@
   border-bottom-left-radius: 15px;
   border: none;
 }
+
+.btn.auth-btn {
+  @extend .account ;
+
+  border-radius: 0px;
+}

@@ -19,7 +19,7 @@ const ApplicationLogo = ({ height, classes, ...props }: any) => {
     };
   }, []);
 
-  const defaultHeight = 50
+  const defaultHeight = 45
 
   const logoHeight =
     height ? height :

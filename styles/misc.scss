@@ -1,17 +1,17 @@
 @use './colors.scss' as cl;
+@use './mixins/typography.scss' as *;
 
 // Normalize
 body {
   padding: 0;
   margin: 0;
+
+  @include typography-styles;
 }
 
 * {
   box-sizing: border-box;
-}
-
-img {
-  max-width: 100%;
+  // transition: all 0.3s;
 }
 
 a {
@@ -25,14 +25,6 @@ input:-internal-autofill-selected {
   color: initial !important;
 }
 
-.text-primary {
-  color: cl.$primary;
-}
-
-.capitalize {
-  text-transform: uppercase;
-}
-
 .border-none {
   border: none !important;
 
@@ -40,13 +32,4 @@ input:-internal-autofill-selected {
     border: none !important;
     outline: none !important;
   }
-}
-
-// Background
-.bg-black {
-  background-color: black;
-}
-
-.bg-white {
-  background-color: black;
 }
