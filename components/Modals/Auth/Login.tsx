@@ -7,6 +7,7 @@ import Button from "@/components/Button"
 import { hide, showRegister } from "@/lib/redux/slices/authModalSlice"
 import * as yup from 'yup';
 import { Formik } from "formik"
+import { LoginAuthProps, useLazyInitCsrfQuery, useLoginMutation } from "@/lib/redux/apis/endpoints/auth"
 
 const Login = () => {
 
@@ -16,13 +17,25 @@ const Login = () => {
   const openModal = useSelector((state: RootState) => state.authModal)
   const dispatch = useDispatch()
 
+  const [useLogin, { isLoading }] = useLoginMutation()
+  const [useCsrf] = useLazyInitCsrfQuery()
+
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
   });
 
-  const handleLogin = () => {
-    requestClose()
+  const handleLogin = async (values: LoginAuthProps) => {
+    setLoginError('')
+
+    await useCsrf()
+
+    await useLogin(values)
+      .unwrap()
+      .then()
+      .catch((e: any) => {
+        setLoginError(e.data.message);
+      })
   }
 
   const togglePasswordVisibility = () => {
@@ -81,13 +94,15 @@ const Login = () => {
                 <Button
                   type="submit"
                   onClick={handleSubmit}
-                  className="auth-btn">
+                  className="auth-btn"
+                  processing={isLoading}>
                   Login
                 </Button>
 
                 <Button
                   onClick={() => dispatch(showRegister())}
-                  className="underline">
+                  className="underline"
+                  processing={isLoading}>
                   Create Account
                 </Button>
               </div>

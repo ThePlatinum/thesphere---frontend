@@ -1,6 +1,7 @@
 interface ButtonProps {
   className?: string
   outline?: boolean
+  processing?: boolean
   type?: "button" | "submit"
   onClick: () => void
   title?: string
@@ -10,6 +11,7 @@ interface ButtonProps {
 const Button = ({
   className = '',
   outline = false,
+  processing = false,
   type = "button",
   title,
   children = {},
@@ -19,8 +21,9 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`btn ${outline ? 'btn-outline' : ''} ${className}`}
+      className={`btn ${outline ? 'btn-outline' : ''} ${processing? 'disabled' : ''} ${className}`}
       onClick={onClick}
+      disabled={processing}
       {...props}>
       {title || children}
     </button>

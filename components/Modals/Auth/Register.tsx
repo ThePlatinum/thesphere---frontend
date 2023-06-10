@@ -7,6 +7,7 @@ import { hide, showLogin } from "@/lib/redux/slices/authModalSlice"
 import * as yup from 'yup';
 import { Formik } from "formik"
 import { useState } from "react"
+import { useLazyInitCsrfQuery, useRegisterMutation } from "@/lib/redux/apis/endpoints/auth"
 
 const Register = () => {
 
@@ -16,19 +17,29 @@ const Register = () => {
   const openModal = useSelector((state: RootState) => state.authModal)
   const dispatch = useDispatch()
 
+  const [useRegister, { isLoading }] = useRegisterMutation()
+  const [useCsrf] = useLazyInitCsrfQuery()
+
   const validationSchema = yup.object().shape({
     name: yup.string().required('Your name please').min(2, 'Use a real name'),
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string()
       .required('Password is required')
       .min(8, 'Password should be at least 8 characters'),
-    confirm_password: yup.string()
+    password_confirmation: yup.string()
       .required('Confirm Password is required')
       .oneOf([yup.ref('password')], 'Passwords do not match')
   });
 
-  const handleRegister = () => {
-    requestClose()
+  const handleRegister = async (values: any) => {
+    await useCsrf()
+
+    await useRegister(values)
+      .unwrap()
+      .then()
+      .catch((e: any) => {
+        setRegisterError(e.data.message);
+      })
   }
 
   const requestClose = () => dispatch(hide())
@@ -38,12 +49,12 @@ const Register = () => {
   }
 
   return (
-    <Modal open={openModal == 'register'} onClose={() => console.log('Onclose: ')} >
+    <Modal open={openModal == 'register'}>
       <Modal.Content useClose className={'py-12 w-md-32'} requestClose={requestClose}>
         <ApplicationLogo />
 
         <Formik
-          initialValues={{ name: '', email: '', password: '', confirm_password: '' }}
+          initialValues={{ name: '', email: '', password: '', password_confirmation: '' }}
           validationSchema={validationSchema}
           onSubmit={handleRegister} >
           {({ handleChange, handleBlur, handleSubmit, errors, values }: any) => (
@@ -101,12 +112,12 @@ const Register = () => {
                   placeholder="Confirm Password"
                   aria-label="Confirm Password"
                   type='password'
-                  name="confirm_password"
-                  value={values.confirm_password}
-                  onBlur={handleBlur('confirm_password')}
-                  onChange={handleChange('confirm_password')}
+                  name="password_confirmation"
+                  value={values.password_confirmation}
+                  onBlur={handleBlur('password_confirmation')}
+                  onChange={handleChange('password_confirmation')}
                 />
-                {errors.confirm_password && <p className='form-error'>{errors.confirm_password}</p>}
+                {errors.password_confirmation && <p className='form-error'>{errors.password_confirmation}</p>}
               </div>
 
               <p className='form-error pt-8 h6'>{registerError}</p>
@@ -115,13 +126,15 @@ const Register = () => {
                 <Button
                   type="submit"
                   onClick={handleSubmit}
-                  className="auth-btn">
+                  className="auth-btn"
+                  processing={isLoading}>
                   Register
                 </Button>
 
                 <Button
                   onClick={() => dispatch(showLogin())}
-                  className="underline">
+                  className="underline"
+                  processing={isLoading}>
                   Back to Login
                 </Button>
               </div>

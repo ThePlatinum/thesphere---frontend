@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux"
 import ApplicationLogo from "./ApplicationLogo"
 import Button from "./Button"
-import { RootState } from "@/lib/redux/store"
 import router from 'next/router'
 import { showLogin } from "@/lib/redux/slices/authModalSlice"
+import { useGetUserQuery } from "@/lib/redux/apis/endpoints/account"
 
 const Header = () => {
 
-  const auth = useSelector((state: RootState) => state.auth)
+  const {data: user, isError} = useGetUserQuery()
   const dispatch = useDispatch()
 
   const handleAccount = () => {
-    auth ?
+    user ?
       router.push('/account') :
       dispatch(showLogin())
   }

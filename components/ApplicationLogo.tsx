@@ -26,16 +26,18 @@ const ApplicationLogo = ({ height, classes, ...props }: any) => {
       isMobile ? defaultHeight / 1.5 : defaultHeight;
 
   return (
-    <Image
-      src={TheSphere}
-      alt="TheSphere Logo"
-      height={logoHeight}
-      style={{
-        marginTop: "2px",
-      }}
-      className={classes}
-      {...props}
-    />
+    <a href="/">
+      <Image
+        src={TheSphere}
+        alt="TheSphere Logo"
+        height={logoHeight}
+        style={{
+          marginTop: "2px",
+        }}
+        className={classes}
+        {...props}
+      />
+    </a>
   );
 };
 

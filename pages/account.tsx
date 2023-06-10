@@ -1,15 +1,35 @@
 import Button from '@/components/Button'
 import AppLayout from '@/layouts/AppLayout'
+import { useGetUserQuery } from '@/lib/redux/apis/endpoints/account'
+import { useEffect } from 'react'
+import router from 'next/router'
+import { useLogoutMutation } from '@/lib/redux/apis/endpoints/auth'
+import { baseApi } from '@/lib/redux/apis/baseApi'
+import { useDispatch } from 'react-redux'
 
 function Account() {
+
+  const {data: user, isLoading, refetch, isError} = useGetUserQuery()
+  const [useLogout] = useLogoutMutation()
+  const dispatch = useDispatch()
+
+  const handleLogout = async () => {
+    await useLogout()
+
+    dispatch(baseApi.util.resetApiState())
+  }
+
+  useEffect(()=>{
+    if ((!user && !isLoading ) || isError) router.push('/')
+  }, [user, isLoading])
 
   return (
     <>
       <AppLayout title={'Account'} >
         <section className='pb-12 pb-md-4'>
           <p className='muted'>Account</p>
-          <h1>Emmanuel Adesina</h1>
-          <h2 className='h6 light'>platinumemirate@gmail.com</h2>
+          <h1>{user?.name}</h1>
+          <h2 className='h6 light'>{user?.email}</h2>
           <Button onClick={()=>{}} title='Update Profile' className='p-0 underline action-btn' />
         </section>
 
@@ -29,6 +49,10 @@ function Account() {
           <h2 className='h6 light'>Preferred Sources</h2>
           <p>Not set</p>
           <Button onClick={()=>{}} title='Edit Preferred Sources' className='p-0 underline action-btn' />
+        </section>
+
+        <section className="pb-12 pb-md-4">
+          <Button onClick={handleLogout} title='Logout' className='p-0 underline action-btn' />
         </section>
       </AppLayout>
     </>
