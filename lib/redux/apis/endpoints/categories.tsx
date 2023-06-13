@@ -17,7 +17,7 @@ const categoriesApi = baseApi.injectEndpoints({
 
     getUserCategories: build.query<Array<CategoryProps>, void>({
       query: () => 'api/user/categories',
-      providesTags: ['UserCategories', 'Preference'],
+      providesTags: ['UserCategories'],
     }),
 
     updateUserCategories: build.mutation<any, Array<number>>({

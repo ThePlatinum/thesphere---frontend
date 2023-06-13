@@ -7,7 +7,7 @@ export const preferenceModalSlice = createSlice({
   initialState,
   reducers: {
     showCategory: (state) => { return state = "category" },
-    showSources: (state) => { return state = "sources" },
+    showSources: (state) => { return state = "source" },
     hide: (state) => { return state = 'hide' }
   }
 })

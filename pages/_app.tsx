@@ -1,4 +1,5 @@
 import Categories from '@/components/Modals/Account/Categories'
+import Sources from '@/components/Modals/Account/Sources'
 import { store } from '@/lib/redux/store'
 import '@/styles/globals.scss'
 import type { AppProps } from 'next/app'
@@ -10,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Component {...pageProps} />
 
       <Categories />
-      
+      <Sources />      
     </Provider>
   )
 }

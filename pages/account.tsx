@@ -8,11 +8,13 @@ import { baseApi } from '@/lib/redux/apis/baseApi'
 import { useDispatch } from 'react-redux'
 import { showCategory, showSources } from '@/lib/redux/slices/preferenceModalSlice'
 import { useGetUserCategoriesQuery } from '@/lib/redux/apis/endpoints/categories'
+import { useGetUserSourcesQuery } from '@/lib/redux/apis/endpoints/sources'
 
 function Account() {
 
-  const { data: user, isLoading, refetch, isError } = useGetUserQuery()
+  const { data: user, isLoading, isError } = useGetUserQuery()
   const { data: user_categories, isLoading: gettingUserCategories } = useGetUserCategoriesQuery()
+  const { data: user_sources, isLoading: gettingUserSources } = useGetUserSourcesQuery()
 
   const [useLogout] = useLogoutMutation()
   const dispatch = useDispatch()
@@ -60,7 +62,8 @@ function Account() {
 
         <section className="pb-12 pb-md-4">
           <h2 className='h6 light'>Preferred Sources</h2>
-          <p>Not set</p>
+          {!user_sources && <p>Not set</p>}
+          <p>{user_sources?.map((source) => source.name).join(', ')}</p>
           <Button onClick={() => handlePreferenceModal("source")} title='Edit Preferred Sources' className='p-0 underline action-btn' />
         </section>
 

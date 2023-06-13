@@ -26,7 +26,7 @@ const authApi = baseApi.injectEndpoints({
           ...loginProps
         },
       }),
-      invalidatesTags: ['User', 'Preference', 'UserCategories']
+      invalidatesTags: ['User', 'UserCategories']
     }),
 
     register: builder.mutation<any, RegisterAuthProps>({
@@ -38,7 +38,7 @@ const authApi = baseApi.injectEndpoints({
           ...registerProps
         }
       }),
-      invalidatesTags: ['User', 'Preference', 'UserCategories']
+      invalidatesTags: ['User', 'UserCategories']
     }),
 
     logout: builder.mutation<void, void>({
@@ -49,7 +49,7 @@ const authApi = baseApi.injectEndpoints({
           rtk_token: XSRF_TOKEN(),
         },
       }),
-      invalidatesTags: ['User', 'Preference', 'UserCategories']
+      invalidatesTags: ['User', 'UserCategories']
     }),
   })
 })

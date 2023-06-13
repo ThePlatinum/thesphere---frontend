@@ -24,7 +24,8 @@ export const baseApi = createApi({
     'User',
     'Categories',
     'UserCategories',
-    'Preference',
+    'Sources',
+    'UserSources',
     'Feeds',
     'Popular',
     'FeedCategory'

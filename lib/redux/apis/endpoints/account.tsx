@@ -1,4 +1,3 @@
-import { store } from "../../store";
 import { baseApi } from "../baseApi";
 
 interface UserProps {
