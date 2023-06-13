@@ -1,9 +1,8 @@
-import { useGetUserQuery } from "@/lib/redux/apis/endpoints/account"
 import { useEffect } from "react"
 
 interface ModalProps {
   children: any
-  open: boolean
+  open?: boolean
   className?: string
   onClose?: () => void
   requestClose?: () => void
@@ -37,10 +36,8 @@ const Modal = ({
     (!open && onClose) && onClose()
   }, [open])
 
-  const { data:user } = useGetUserQuery()
-
   return (
-    <div className={`modal ${(open && !user) ? 'open' : ''} ${className}`}>
+    <div className={`modal ${open ? 'open' : ''} ${className}`}>
       {children}
     </div>
   )

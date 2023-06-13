@@ -15,25 +15,16 @@ const accountApi = baseApi.injectEndpoints({
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
 
         baseQueryReturnValue.data = null;
-        
+
         return baseQueryReturnValue;
       },
     }),
 
-    updateUser: build.mutation<any, any>({
-      query: (q) => ({
-        url: 'login',
-        method: 'POST',
-        body: q
-      }),
-      invalidatesTags: ['User']
-    }),
   })
 })
 
 export const {
-  useGetUserQuery,
-  useUpdateUserMutation
+  useGetUserQuery
 } = accountApi;
 
 export default accountApi;

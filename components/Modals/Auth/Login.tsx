@@ -1,13 +1,14 @@
 import ApplicationLogo from "@/components/ApplicationLogo"
-import Modal from "../Modal"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "@/lib/redux/store"
-import { useEffect, useState } from "react"
 import Button from "@/components/Button"
-import { hide, showRegister } from "@/lib/redux/slices/authModalSlice"
-import * as yup from 'yup';
-import { Formik } from "formik"
+import { useGetUserQuery } from "@/lib/redux/apis/endpoints/account"
 import { LoginAuthProps, useLazyInitCsrfQuery, useLoginMutation } from "@/lib/redux/apis/endpoints/auth"
+import { hide, showRegister } from "@/lib/redux/slices/authModalSlice"
+import { RootState } from "@/lib/redux/store"
+import { Formik } from "formik"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import * as yup from 'yup'
+import Modal from "../Modal"
 
 const Login = () => {
 
@@ -19,6 +20,8 @@ const Login = () => {
 
   const [useLogin, { isLoading }] = useLoginMutation()
   const [useCsrf] = useLazyInitCsrfQuery()
+
+  const {data: user} = useGetUserQuery()
 
   const validationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -45,7 +48,7 @@ const Login = () => {
   const requestClose = () => dispatch(hide())
 
   return (
-    <Modal open={openModal == 'login'} >
+    <Modal open={(openModal == 'login' && !user)} >
       <Modal.Content useClose className={'py-12 w-md-32'} requestClose={requestClose}>
         <ApplicationLogo />
 

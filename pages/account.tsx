@@ -6,10 +6,14 @@ import router from 'next/router'
 import { useLogoutMutation } from '@/lib/redux/apis/endpoints/auth'
 import { baseApi } from '@/lib/redux/apis/baseApi'
 import { useDispatch } from 'react-redux'
+import { showCategory, showSources } from '@/lib/redux/slices/preferenceModalSlice'
+import { useGetUserCategoriesQuery } from '@/lib/redux/apis/endpoints/categories'
 
 function Account() {
 
-  const {data: user, isLoading, refetch, isError} = useGetUserQuery()
+  const { data: user, isLoading, refetch, isError } = useGetUserQuery()
+  const { data: user_categories, isLoading: gettingUserCategories } = useGetUserCategoriesQuery()
+
   const [useLogout] = useLogoutMutation()
   const dispatch = useDispatch()
 
@@ -19,8 +23,14 @@ function Account() {
     dispatch(baseApi.util.resetApiState())
   }
 
-  useEffect(()=>{
-    if ((!user && !isLoading ) || isError) router.push('/')
+  const handlePreferenceModal = (which: 'category' | 'source') => {
+    which == 'category' ?
+      dispatch(showCategory()) :
+      dispatch(showSources())
+  }
+
+  useEffect(() => {
+    if ((!user && !isLoading) || isError) router.push('/')
   }, [user, isLoading])
 
   return (
@@ -30,25 +40,28 @@ function Account() {
           <p className='muted'>Account</p>
           <h1>{user?.name}</h1>
           <h2 className='h6 light'>{user?.email}</h2>
-          <Button onClick={()=>{}} title='Update Profile' className='p-0 underline action-btn' />
+          <Button onClick={() => { }} title='Update Profile' className='p-0 underline action-btn' />
         </section>
 
         <section className="pb-12 pb-md-4">
           <h2 className='h6 light'>Newsletter</h2>
           <p>Not Subscribed</p>
-          <Button onClick={()=>{}} title='Subscribe' className='p-0 underline action-btn' />
+          <Button onClick={() => { }} title='Subscribe' className='p-0 underline action-btn' />
         </section>
 
         <section className="pb-12 pb-md-4">
           <h2 className='h6 light'>Interest</h2>
-          <p>Not set</p>
-          <Button onClick={()=>{}} title='Edit Interests' className='p-0 underline action-btn' />
+          <div className="py-0 flex gap-4 align-top wrap">
+            {!user_categories && <p>Not set</p>}
+            <p>{user_categories?.map((category) => category.name).join(', ')}</p>
+          </div>
+          <Button onClick={() => handlePreferenceModal("category")} title='Edit Interests' className='p-0 underline action-btn' />
         </section>
 
         <section className="pb-12 pb-md-4">
           <h2 className='h6 light'>Preferred Sources</h2>
           <p>Not set</p>
-          <Button onClick={()=>{}} title='Edit Preferred Sources' className='p-0 underline action-btn' />
+          <Button onClick={() => handlePreferenceModal("source")} title='Edit Preferred Sources' className='p-0 underline action-btn' />
         </section>
 
         <section className="pb-12 pb-md-4">

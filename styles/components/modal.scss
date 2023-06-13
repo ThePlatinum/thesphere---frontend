@@ -9,7 +9,7 @@ $modal-transition-duration: 0.5s;
 
 @media screen and (min-width: 768px) {
   :root {
-    --modal-max-width: 50vw;
+    --modal-max-width: 80vw;
   }
 }
 
@@ -39,7 +39,9 @@ $modal-transition-duration: 0.5s;
     background-color: #fff;
     width: var(--modal-max-width);
     max-width: var(--modal-max-width);
+    max-height: 85vh;
     padding: $modal-padding;
+    overflow: auto;
     border-radius: 0px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 

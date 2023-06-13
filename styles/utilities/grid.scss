@@ -1,4 +1,4 @@
-@use '../mixins/breakpoints.scss' as * ;
+@use '../mixins/breakpoints.scss' as *;
 
 $grid-columns: 12;
 
@@ -13,27 +13,30 @@ $grid-columns: 12;
   position: relative;
   width: 100%;
   min-height: 1px;
+}
 
-  @for $i from 1 through $grid-columns {
-    &.col-#{$i} {
-      flex: 0 0 percentage($i / $grid-columns);
-      max-width: percentage($i / $grid-columns);
-    }
-
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    flex: 0 0 percentage($i / $grid-columns);
+    max-width: percentage($i / $grid-columns);
   }
 
-  @each $breakpoint, $width in $breakpoints {
-    @include media-breakpoint-up($breakpoint) {
-      @for $i from 1 through $grid-columns {
-        &.col-#{$breakpoint}-#{$i} {
-          flex: 0 0 percentage($i / $grid-columns);
-          max-width: percentage($i / $grid-columns);
-        }
+}
+
+@each $breakpoint,
+$width in $breakpoints {
+  @include media-breakpoint-up($breakpoint) {
+    @for $i from 1 through $grid-columns {
+      .col-#{$breakpoint}-#{$i} {
+        flex: 0 0 percentage($i / $grid-columns);
+        max-width: percentage($i / $grid-columns);
       }
     }
   }
 }
 
 @for $i from 1 through $grid-columns {
-  .gap-#{$i} { gap: $i+px }
+  .gap-#{$i} {
+    gap: $i+px
+  }
 }

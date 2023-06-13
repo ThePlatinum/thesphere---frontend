@@ -25,7 +25,7 @@
   justify-content: flex-end;
 }
 
-.top {
+.align-top {
   align-items: flex-start;
 }
 
@@ -56,4 +56,8 @@
 
 .space-around {
   justify-content: space-around;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }

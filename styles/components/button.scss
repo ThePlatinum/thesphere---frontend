@@ -5,7 +5,13 @@
     background-color: $secondary;
     border-radius: 0px;
     border-bottom-left-radius: 15px;
-    border: none;
+    transition: all 6ms;
+    border: $secondary 1px solid ;
+
+    &:hover {
+      background-color: #fff;
+      border: $secondary 1px solid ;
+    }
   }
 
   &.auth-btn {

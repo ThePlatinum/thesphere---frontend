@@ -1,13 +1,14 @@
 import ApplicationLogo from "@/components/ApplicationLogo"
-import Modal from "../Modal"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "@/lib/redux/store"
 import Button from "@/components/Button"
+import { useGetUserQuery } from "@/lib/redux/apis/endpoints/account"
+import { useLazyInitCsrfQuery, useRegisterMutation } from "@/lib/redux/apis/endpoints/auth"
 import { hide, showLogin } from "@/lib/redux/slices/authModalSlice"
-import * as yup from 'yup';
+import { RootState } from "@/lib/redux/store"
 import { Formik } from "formik"
 import { useState } from "react"
-import { useLazyInitCsrfQuery, useRegisterMutation } from "@/lib/redux/apis/endpoints/auth"
+import { useDispatch, useSelector } from "react-redux"
+import * as yup from 'yup'
+import Modal from "../Modal"
 
 const Register = () => {
 
@@ -44,12 +45,14 @@ const Register = () => {
 
   const requestClose = () => dispatch(hide())
 
+  const {data: user} = useGetUserQuery()
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible)
   }
 
   return (
-    <Modal open={openModal == 'register'}>
+    <Modal open={(openModal == 'register' && !user)} >
       <Modal.Content useClose className={'py-12 w-md-32'} requestClose={requestClose}>
         <ApplicationLogo />
 

@@ -17,10 +17,18 @@ export const XSRF_TOKEN = () => decodeURIComponent(document.cookie.split('=')[1]
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithRetry,
-  tagTypes: ['User', 'Preference'],
   refetchOnReconnect: true,
   refetchOnFocus: true,
-  endpoints: (builder) => ({})
+  endpoints: (builder) => ({}),
+  tagTypes: [
+    'User',
+    'Categories',
+    'UserCategories',
+    'Preference',
+    'Feeds',
+    'Popular',
+    'FeedCategory'
+  ]
 })
 
 export const {

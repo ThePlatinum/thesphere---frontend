@@ -1,0 +1,35 @@
+.categoryCard {
+  background-color: #EEE;
+  margin: 5px;
+  position: relative;
+
+  &:hover {
+    background-color: #ccc;
+  }
+
+  button {
+    border: 0;
+    padding: 1.2rem 1.2rem 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  p {
+    margin-bottom: 0 !important;
+  }
+
+  .markCheck {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #a5f381;
+    padding: 0.25rem;
+    // border-radius: 50px;
+    text-align: center;
+
+    svg {
+      width: 15px;
+    }
+  }
+}
