@@ -20,7 +20,7 @@ const AppLayout = ({ children, title }: AppLayoutProps) => {
 
       <Header />
 
-      <main className="px-2 px-md-8 py-2 flex-1">
+      <main className="px-2 px-md-8 pb-2 flex-1">
         {children}
       </main>
 

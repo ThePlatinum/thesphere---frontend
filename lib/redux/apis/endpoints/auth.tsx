@@ -26,7 +26,7 @@ const authApi = baseApi.injectEndpoints({
           ...loginProps
         },
       }),
-      invalidatesTags: ['User', 'UserCategories']
+      invalidatesTags: ['User', 'UserCategories', 'Feeds',  'Popular', 'UserSources']
     }),
 
     register: builder.mutation<any, RegisterAuthProps>({

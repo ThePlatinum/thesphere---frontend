@@ -1,5 +1,7 @@
 import Button from '@/components/Button'
 import FeedCards from '@/components/Feed/FeedCards'
+import Popular from '@/components/Feed/Popular'
+import Loader from '@/components/Loader'
 import Login from '@/components/Modals/Auth/Login'
 import Register from '@/components/Modals/Auth/Register'
 import AppLayout from '@/layouts/AppLayout'
@@ -37,12 +39,13 @@ function Home() {
     );
   }
 
+  // TODO: Pagination or Continous Scroll
   const [page, setPage] = useState<number>(1)
   const [query, setQuery] = useState<string>('')
 
   const searchBoxRef = useRef(null);
 
-  const { data: feedsData, isLoading } = useGetFeedsQuery({
+  const { data: feedsData, isLoading, isFetching } = useGetFeedsQuery({
     page: page,
     query: query
   })
@@ -64,7 +67,12 @@ function Home() {
       <AppLayout title={'Home'} >
 
         {/* Popular */}
-        <div className='flex'>
+        <div className='flex pb-2'>
+          <div className="col-12">
+            <Popular />
+          </div>
+
+          {/* TODO: Add a weather report */}
         </div>
 
         {/* Search */}
@@ -95,9 +103,11 @@ function Home() {
             <div className="py-2">
               <h5>For You</h5>
               <hr className="red" />
-              {feeds?.map((feed, i) => <FeedCards key={i} feed={feed} />)}
+              {isLoading && <Loader height={90} />}
+              {feeds && feeds?.map((feed, i) => <FeedCards key={i} feed={feed} />)}
             </div>
 
+            {/* Popular Categories */}
           </div>
         </div>
 

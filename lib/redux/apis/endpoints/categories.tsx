@@ -29,7 +29,7 @@ const categoriesApi = baseApi.injectEndpoints({
           'categories': q
         }
       }),
-      invalidatesTags: ['UserCategories', 'Feeds']
+      invalidatesTags: ['UserCategories', 'Feeds', 'Popular']
     }),
 
   })

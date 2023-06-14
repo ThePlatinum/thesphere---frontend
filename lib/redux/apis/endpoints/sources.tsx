@@ -29,7 +29,7 @@ const sourcesApi = baseApi.injectEndpoints({
           'sources': q
         }
       }),
-      invalidatesTags: ['UserSources', 'Feeds']
+      invalidatesTags: ['UserSources', 'Feeds', 'Popular']
     }),
 
   })

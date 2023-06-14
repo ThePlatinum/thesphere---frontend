@@ -48,6 +48,11 @@ const feedsApi = baseApi.injectEndpoints({
           total: baseQueryReturnValue.total
         };
       },
+    }),
+
+    getPopularFeed: builder.query<Feeds, void>({
+      query: () => `api/feed/popular`,
+      providesTags: ['Popular']
     })
 
   })
@@ -55,6 +60,7 @@ const feedsApi = baseApi.injectEndpoints({
 
 export const {
   useGetFeedsQuery,
+  useGetPopularFeedQuery
 } = feedsApi;
 
 export default feedsApi;
