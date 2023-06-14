@@ -3,7 +3,7 @@
 $maxVal: 100;
 $step: 2;
 $fullable-types: h, w;
-$spacing-types: h, w, p, m, px, py, pr, pl, pt, pb;
+$spacing-types: h, w, p, m, px, py, pr, pl, pt, pb, my, mx;
 
 @each $fullable in $fullable-types {
   .#{$fullable}-full {
@@ -27,6 +27,10 @@ $spacing-types: h, w, p, m, px, py, pr, pl, pt, pb;
         @else if $type == w { width: #{$val} !important; }
         @else if $type == p { padding: #{$val} !important; }
         @else if $type == m { margin: #{$val} !important; }
+
+        @else if $type == mx { margin-left: #{$val}; margin-right: #{$val}; }
+        @else if $type == my { margin-top: #{$val}; margin-bottom: #{$val}; }
+
         @else if $type == px { padding-left: #{$val}; padding-right: #{$val}; }
         @else if $type == py { padding-top: #{$val}; padding-bottom: #{$val}; }
         
@@ -54,6 +58,10 @@ $width in $breakpoints {
             @else if $type == w { width: #{$val} !important; }
             @else if $type == p { padding: #{$val} !important; }
             @else if $type == m { margin: #{$val} !important; }
+
+            @else if $type == mx { margin-left: #{$val}; margin-right: #{$val}; }
+            @else if $type == my { margin-top: #{$val}; margin-bottom: #{$val}; }
+            
             @else if $type == px { padding-left: #{$val}; padding-right: #{$val}; }
             @else if $type == py { padding-top: #{$val}; padding-bottom: #{$val}; }
             

@@ -1,0 +1,58 @@
+@use '../mixins/breakpoints.scss' as *;
+
+hr.red {
+  border-color: red;
+}
+
+.feedsCard {
+
+  .url {
+    text-decoration: none;
+    margin-bottom: 2px;
+    font-size: 1.1rem;
+    color: currentColor;
+  }
+
+  .feedImage {
+    object-fit: cover;
+    background-color: #d9d9d9;
+  }
+
+  .sourceAndDate {
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  .categories {
+    background-color: rgb(206, 123, 123);
+    width: fit-content;
+    padding: 0.25rem 0.5rem;
+    font-size: x-small;
+    margin-bottom: 3px;
+  }
+
+  .title,
+  .description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+}
+
+@include media-breakpoint-up('md') {
+  .feedsCard {
+    .url {
+      font-size: 1.5rem;
+    }
+
+    .title,
+    .description {
+      -webkit-line-clamp: 3;
+    }
+  }
+
+}

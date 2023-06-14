@@ -6,9 +6,9 @@ interface UserProps {
 }
 
 const accountApi = baseApi.injectEndpoints({
-  endpoints: (build) => ({
+  endpoints: (builder) => ({
 
-    getUser: build.query<UserProps, void>({
+    getUser: builder.query<UserProps, void>({
       query: () => 'api/user',
       providesTags: ['User'],
       transformErrorResponse(baseQueryReturnValue, meta, arg) {

@@ -8,19 +8,19 @@ interface CategoryProps {
 }
 
 const categoriesApi = baseApi.injectEndpoints({
-  endpoints: (build) => ({
+  endpoints: (builder) => ({
 
-    getAllCategories: build.query<Array<CategoryProps>, void>({
+    getAllCategories: builder.query<Array<CategoryProps>, void>({
       query: () => 'api/categories',
       providesTags: ['Categories'],
     }),
 
-    getUserCategories: build.query<Array<CategoryProps>, void>({
+    getUserCategories: builder.query<Array<CategoryProps>, void>({
       query: () => 'api/user/categories',
       providesTags: ['UserCategories'],
     }),
 
-    updateUserCategories: build.mutation<any, Array<number>>({
+    updateUserCategories: builder.mutation<any, Array<number>>({
       query: (q) => ({
         url: 'api/user/categories',
         method: 'POST',

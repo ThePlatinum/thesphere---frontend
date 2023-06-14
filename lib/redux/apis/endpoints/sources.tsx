@@ -8,19 +8,19 @@ interface CategoryProps {
 }
 
 const sourcesApi = baseApi.injectEndpoints({
-  endpoints: (build) => ({
+  endpoints: (builder) => ({
 
-    getAllSources: build.query<Array<CategoryProps>, void>({
+    getAllSources: builder.query<Array<CategoryProps>, void>({
       query: () => 'api/sources',
       providesTags: ['Sources'],
     }),
 
-    getUserSources: build.query<Array<CategoryProps>, void>({
+    getUserSources: builder.query<Array<CategoryProps>, void>({
       query: () => 'api/user/sources',
       providesTags: ['UserSources'],
     }),
 
-    updateUserSources: build.mutation<any, Array<number>>({
+    updateUserSources: builder.mutation<any, Array<number>>({
       query: (q) => ({
         url: 'api/user/sources',
         method: 'POST',
