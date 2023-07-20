@@ -18,8 +18,8 @@ const Register = () => {
   const openModal = useSelector((state: RootState) => state.authModal)
   const dispatch = useDispatch()
 
-  const [useRegister, { isLoading }] = useRegisterMutation()
-  const [useCsrf] = useLazyInitCsrfQuery()
+  const [register, { isLoading }] = useRegisterMutation()
+  const [csrf] = useLazyInitCsrfQuery()
 
   const validationSchema = yup.object().shape({
     name: yup.string().required('Your name please').min(2, 'Use a real name'),
@@ -33,9 +33,9 @@ const Register = () => {
   });
 
   const handleRegister = async (values: any) => {
-    await useCsrf()
+    await csrf()
 
-    await useRegister(values)
+    await register(values)
       .unwrap()
       .then()
       .catch((e: any) => {

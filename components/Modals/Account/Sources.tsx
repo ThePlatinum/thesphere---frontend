@@ -11,7 +11,7 @@ import { useGetUserQuery } from "@/lib/redux/apis/endpoints/account"
 
 const Sources = () => {
 
-  const [useCsrf] = useLazyInitCsrfQuery()
+  const [csrf] = useLazyInitCsrfQuery()
 
   const { data: sources, isLoading: gettingSources } = useGetAllSourcesQuery()
   const { data: user_sources, isLoading: gettingUserSources } = useGetUserSourcesQuery()
@@ -44,7 +44,7 @@ const Sources = () => {
   const handleSubmit = async () => {
     if (!selectedSources) return;
 
-    await useCsrf()
+    await csrf()
 
     await updateUserSources(selectedSources)
       .then(() => {

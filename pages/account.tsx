@@ -16,11 +16,11 @@ function Account() {
   const { data: user_categories, isLoading: gettingUserCategories } = useGetUserCategoriesQuery()
   const { data: user_sources, isLoading: gettingUserSources } = useGetUserSourcesQuery()
 
-  const [useLogout] = useLogoutMutation()
+  const [logout] = useLogoutMutation()
   const dispatch = useDispatch()
 
   const handleLogout = async () => {
-    await useLogout()
+    await logout()
 
     dispatch(baseApi.util.resetApiState())
   }
@@ -33,7 +33,7 @@ function Account() {
 
   useEffect(() => {
     if ((!user && !isLoading) || isError) router.push('/')
-  }, [user, isLoading])
+  }, [user, isLoading, isError])
 
   return (
     <>

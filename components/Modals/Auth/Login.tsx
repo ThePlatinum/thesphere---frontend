@@ -18,8 +18,8 @@ const Login = () => {
   const openModal = useSelector((state: RootState) => state.authModal)
   const dispatch = useDispatch()
 
-  const [useLogin, { isLoading }] = useLoginMutation()
-  const [useCsrf] = useLazyInitCsrfQuery()
+  const [login, { isLoading }] = useLoginMutation()
+  const [csrf] = useLazyInitCsrfQuery()
 
   const {data: user} = useGetUserQuery()
 
@@ -31,9 +31,9 @@ const Login = () => {
   const handleLogin = async (values: LoginAuthProps) => {
     setLoginError('')
 
-    await useCsrf()
+    await csrf()
 
-    await useLogin(values)
+    await login(values)
       .unwrap()
       .then()
       .catch((e: any) => {

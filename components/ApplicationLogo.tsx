@@ -1,5 +1,6 @@
 import TheSphere from "@img/TheSphere.png";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const ApplicationLogo = ({ height, classes, ...props }: any) => {
@@ -26,7 +27,7 @@ const ApplicationLogo = ({ height, classes, ...props }: any) => {
       isMobile ? defaultHeight / 1.5 : defaultHeight;
 
   return (
-    <a href="/">
+    <Link href="/">
       <Image
         src={TheSphere}
         alt="TheSphere Logo"
@@ -34,7 +35,7 @@ const ApplicationLogo = ({ height, classes, ...props }: any) => {
         className={classes}
         {...props}
       />
-    </a>
+    </Link>
   );
 };
 

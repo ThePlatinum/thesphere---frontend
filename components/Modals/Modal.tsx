@@ -34,7 +34,7 @@ const Modal = ({
 
   useEffect(() => {
     (!open && onClose) && onClose()
-  }, [open])
+  }, [open, onClose])
 
   return (
     <div className={`modal ${open ? 'open' : ''} ${className}`}>

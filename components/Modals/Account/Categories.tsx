@@ -12,7 +12,7 @@ import { showLogin } from "@/lib/redux/slices/authModalSlice"
 
 const Categories = () => {
 
-  const [useCsrf] = useLazyInitCsrfQuery()
+  const [csrf] = useLazyInitCsrfQuery()
 
   const { data: categories, isLoading: gettingCategories } = useGetAllCategoriesQuery()
   const { data: user_categories, isLoading: gettingUserCategories } = useGetUserCategoriesQuery()
@@ -46,12 +46,12 @@ const Categories = () => {
 
   useEffect(() => {
     if ((!user || isError) && openModal != "hide") dispatch(showLogin())
-  }, [user, openModal])
+  }, [user, openModal, isError])
 
   const handleSubmit = async () => {
     if (!selectedCategories) return;
 
-    await useCsrf()
+    await csrf()
 
     await updateUserCategories(selectedCategories)
       .then(() => {
