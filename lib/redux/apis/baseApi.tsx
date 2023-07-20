@@ -12,7 +12,17 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithRetry = retry(baseQuery, { maxRetries: 1 })
 
-export const XSRF_TOKEN = () => decodeURIComponent(document.cookie.split('=')[1]) // document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
+export const XSRF_TOKEN = (name = 'XSRF-TOKEN') => {
+  const cookies = document.cookie.split('; ');
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.split('=');
+    if (cookieName === name) {
+      return decodeURIComponent(cookieValue);
+    }
+  }
+  return null;
+};
+// decodeURIComponent(document.cookie.split('=')[1]) // document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1')
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
